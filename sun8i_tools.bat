@@ -78,31 +78,26 @@ goto :menu
 echo Installing BusyBox 1.21...
 echo.
 echo Pushing binaries in temp folder.
-adb push .\Bin\1\busybox /data/local/tmp/
+.\adb\adb.exe push .\Bin\1\busybox /data/local/tmp/
 
 echo.
 echo Mount /system as R/W.
-adb shell "su -c mount -o remount -r -w /system"
+.\adb\adb.exe shell "su -c mount -o remount -r -w /system"
 
 echo.
 echo Removing old busybox.
-adb shell "su -c rm /system/bin/busybox"
+.\adb\adb.exe shell "su -c rm /system/bin/busybox"
 
 echo.
 echo Copying binaries into system folder.
-adb shell "su -c cp /data/local/tmp/busybox /system/bin/"
+.\adb\adb.exe shell "su -c cp /data/local/tmp/busybox /system/bin/"
 
 echo.
 echo Changin permissions.
-adb shell "su -c chmod 777 /system/bin/busybox"
+.\adb\adb.exe shell "su -c chmod 777 /system/bin/busybox"
 
 ping -n 3 127.0.0.1 > null
+pause|echo under construction.
 
-
-
-
-
-
-set cls=0
 goto :menu
 
