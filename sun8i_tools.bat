@@ -93,7 +93,7 @@ echo Copying binaries into system folder.
 .\adb\adb.exe shell "su -c cp /data/local/tmp/busybox /system/bin/"
 
 echo.
-echo Changin permissions.
+echo Changing permissions.
 .\adb\adb.exe shell "su -c chmod 777 /system/bin/busybox"
 
 ping -n 3 127.0.0.1 > null
