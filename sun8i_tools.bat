@@ -7,7 +7,7 @@ color 0A
 
 IF %cls% == 1 cls
 echo.
-echo Welcome to sun8i_tools by Doctor_Titi
+echo Welcome to sun8i_tools by Doctor_Titi 01.09.2017 01:29
 echo.
 echo.
 echo  ___________________________________________________
@@ -39,17 +39,26 @@ goto :menu
 :CLS
 echo.
 echo This menu will allow you to erase text after showing up new things. (clear/CLS)
+echo.
 echo 0. Disable CLS
-echo 1. Enabke CLS
+echo 1. Enable CLS
+echo menu. Go back into the main menu
+echo.
 set /p typecls=Make a choice: 
 
 if %typecls% == 0 goto :disable
 if %typecls% == 1 goto :enable
+if %typecls% == menu goto :menu
+
 goto :CLS
 
 :disable
-set cls=
+set cls=0
+goto :menu
+
 :enable
+set cls=1
+goto :menu
 
 
 :help
@@ -57,6 +66,7 @@ echo.
 echo  ___________________________________________________
 echo " 0. Show this menu                                 "
 echo " 1. Install Supersu v2.82 & busybox 1.21 via ADB   "
+echo " 2. Enable menu auto clear                         "
 echo  ---------------------------------------------------
 echo.
 pause|echo Press any key.
