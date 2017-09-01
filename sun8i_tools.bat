@@ -1,5 +1,14 @@
 @echo off
 set cls=1
+set ADB=.\adb\adb.exe
+set /P ADB=Enter ADB path (leave blank to use current ADB): 
+
+if %ADB%==[%1]==[] set ADB=%ADB%
+
+echo ADB binaries chosen is %ADB%
+pause|echo Press any key.
+
+
 
 :menu
 set type=0
@@ -7,7 +16,7 @@ color 0A
 
 IF %cls% == 1 cls
 echo.
-echo Welcome to sun8i_tools by Doctor_Titi 01.09.2017 01:29
+echo Welcome to sun8i_tools by Doctor_Titi 01.09.2017 10:49
 echo.
 echo.
 echo  ___________________________________________________
@@ -19,6 +28,8 @@ echo.
 REM Selector condition
 
 set /p type=Make a choice:
+
+
 if %type% == 0 goto :help
 if %type% == 1 goto :SuperSu
 if %type% == 2 goto :CLS
@@ -63,11 +74,16 @@ goto :menu
 
 :help
 echo.
-echo  ___________________________________________________
+echo _____________________________________________________
 echo " 0. Show this menu                                 "
-echo " 1. Install Supersu v2.82 & busybox 1.21 via ADB   "
+echo " 1. Install Supersu v2.82 & BusyBox 1.21 via ADB   "
 echo " 2. Enable menu auto clear                         "
-echo  ---------------------------------------------------
+echo " 3. install BusyBox 1.27.1 and ToyBox 0.7.4        "
+echo " 4. Install GNU Parted                             "
+echo " 5. List partitions                                "
+echo " 6. Backup a partition (use 4 before)              "
+echo " 7. Install latest OpenGapps for 4.4.x             "
+echo -----------------------------------------------------
 echo.
 pause|echo Press any key.
 REM go back to the menu
@@ -78,26 +94,33 @@ goto :menu
 echo Installing BusyBox 1.21...
 echo.
 echo Pushing binaries in temp folder.
-.\adb\adb.exe push .\Bin\1\busybox /data/local/tmp/
+%ADB% push .\Bin\1\busybox /data/local/tmp/
 
 echo.
 echo Mount /system as R/W.
-.\adb\adb.exe shell "su -c mount -o remount -r -w /system"
+%ADB% shell "su -c mount -o remount -r -w /system"
 
 echo.
 echo Removing old busybox.
-.\adb\adb.exe shell "su -c rm /system/bin/busybox"
+%ADB% shell "su -c rm /system/bin/busybox"
 
 echo.
 echo Copying binaries into system folder.
-.\adb\adb.exe shell "su -c cp /data/local/tmp/busybox /system/bin/"
+%ADB% shell "su -c cp /data/local/tmp/busybox /system/bin/"
 
 echo.
 echo Changing permissions.
-.\adb\adb.exe shell "su -c chmod 777 /system/bin/busybox"
+%ADB% shell "su -c chmod 777 /system/bin/busybox"
 
 ping -n 3 127.0.0.1 > null
 pause|echo under construction.
 
+echo.
+echo Copying libs
+
+
+
 goto :menu
+
+
 
